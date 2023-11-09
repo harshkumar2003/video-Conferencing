@@ -221,20 +221,13 @@ input[type="checkbox" i] {
     padding: initial;
     border: initial;
 }
+
 @media screen and (max-width: 992px) {
     .nav-main {
         width: 100%;
         background-color: #414a4c;
     }
 }
-input[type="password" i] {
-    /* -webkit-text-security: disc !important; */
-    writing-mode: horizontal-tb !important;
-    padding-block: 1px;
-    padding-inline: 2px;
-    margin:0px 0px 8px 0px;
-}
-
 @media screen and (max-width: 768px) {
     .main {
         flex-direction: column;
@@ -249,6 +242,6 @@ input[type="password" i] {
     }
 
     .login, .signup {
-        margin: 20px 0;
+        margin: 280px 0;
     }
 }
