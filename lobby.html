@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ChatMeetX</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='styles/home.css'>
+    <link rel='stylesheet' href='styles/lobby.css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+    <div id="nav">
+        <div class="nav--list">
+            <a href="lobby.html">
+                <h3 id="logo">
+                    <img src="images/logo.png" alt="Site Logo">
+                    <span>ChatMeetX</span>
+                </h3>
+            </a>
+        </div>
+
+        <div id="nav__links">
+            <div class="con">
+                <ul>
+                    <!-- <li>Home</li> -->
+                    <li><i class="material-icons">person<span id="user-email">
+                        account_circle
+                        </spa></i></li>
+                    <li><span  id="logout"  class="material-symbols-outlined">
+                        logout
+                        </spa></li>
+                        
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="room__lobby__container">
+        <div id="form__container">
+            <div id="form__container__header">
+                <p>👋 Create or Join Meeting</p>
+            </div>
+            <form id="lobby__form">
+                <div class="form__field__wrapper">
+                    <label>Your Name</label>
+                    <input type="text" name="name" required placeholder="Enter your display name..." />
+                </div>
+
+                <div class="form__field__wrapper">
+                    <label>Meeting Code</label>
+                    <input type="text" name="room" placeholder="Enter Meeting Code..." />
+                </div>
+
+                <div class="form__field__wrapper">
+                    <button type="submit">Go to Meeting
+                        <span class="material-symbols-outlined">
+                            arrow_forward
+                            </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/lobby.js"></script>
+<script type="module">
+    // Import Firebase SDK modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
+    // Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyD0Vqnc9hqCGUkJyDQBcxuStPKhrJT4gSc",
+    authDomain: "video-conf-b3be2.firebaseapp.com",
+    projectId: "video-conf-b3be2",
+    storageBucket: "video-conf-b3be2.appspot.com",
+    messagingSenderId: "76426416586",
+    appId: "1:76426416586:web:a3fa507f3118e5844f7f33",
+    measurementId: "G-17MVB4ZBZG"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+    onAuthStateChanged(auth, function (user) {
+            if (user) {
+                const email = user.email;
+                document.getElementById("user-email").textContent = " " + email;
+                
+            } else {
+                // Redirect to the login page if the user is not authenticated.
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Add a click event listener to the "Logout" button
+        document.getElementById('logout').addEventListener("click", function () {
+            // Call the logout function
+            logout();
+        });
+
+        // Function to log out
+        function logout() {
+            signOut(auth).then(function () {
+                // Clear the user email display
+                document.getElementById("user-email").textContent = " ";
+                // Redirect to the login page (index.html)
+                window.location.href = 'index.html';
+            }).catch(function (error) {
+                console.error("Error logging out: " + error.message);
+            });
+        }
+    </script>
+
+</html>
